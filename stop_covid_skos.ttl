@@ -66,30 +66,37 @@ ex:anyEffort a skos:Concept ;
     skos:related ex:everyone .
 
 ex:stayAway a skos:Concept ;
+    skos:broader ex:Guideline ; 
     skos:prefLabel "Stay away" ;
     skos:description "Stay 6 ft/2 m away from others, don’t touch shared/public unsafe surfaces" ; 
     skos:related ex:selfIsolate .
 
 ex:helpOthers a skos:Concept ;
+    skos:broader ex:Guideline ; 
     skos:prefLabel "Help others" ;
     skos:description "Help others locally without physical contact, engage others online." ; 
     skos:related ex:selfIsolate .
 
 ex:stayClean a skos:Concept ;
+    skos:broader ex:Guideline ; 
     skos:prefLabel "Clean" ;
     skos:description "Use soap, disinfectant, gloves or plastic bag." ; 
     skos:related ex:selfIsolate .
 
 ex:stayInformed a skos:Concept ;
+    skos:broader ex:Guideline ; 
+    skos:prefLabel "Informed" ;
     skos:description "Stay informed about typical symptoms, local instructions for testing/treating, be able to act ASAP once any symptom manifests" ;
     skos:related ex:selfIsolate .
 
 ex:agree a skos:Concept ;
+    skos:broader ex:Guideline ; 
     skos:prefLabel "Agree to be safe" ;
     skos:description "Share Safe Spaces with family/friends who agree to isolate from others." ;
     skos:related ex:family .
 
 ex:isolate a skos:Concept ;
+    skos:broader ex:Guideline ; 
     skos:prefLabel "Isolate from family" ;
     skos:description "Individuals with symptoms or positive case identification should isolate separately from family and friends." ;
     skos:related ex:family .
