@@ -37,6 +37,11 @@ ex:selfIsolate a skos:Concept ;
 
 ex:family a skos:Concept ;
     skos:prefLabel "Family" ;
+    skos:description "Familiy living in the same house" ;
+    skos:broader ex:everyone . 
+
+ex:friends a skos:Concept ;
+    skos:prefLabel "Friends" ;
     skos:broader ex:everyone . 
 
 ex:Guideline a skos:Concept ;
@@ -82,4 +87,9 @@ ex:stayInformed a skos:Concept ;
 ex:agree a skos:Concept ;
     skos:prefLabel "Agree to be safe" ;
     skos:description "Share Safe Spaces with family/friends who agree to isolate from others." ;
+    skos:related ex:family .
+
+ex:isolate a skos:Concept ;
+    skos:prefLabel "Isolate from family" ;
+    skos:description "Individuals with symptoms or positive case identification should isolate separately from family and friends." ;
     skos:related ex:family .
