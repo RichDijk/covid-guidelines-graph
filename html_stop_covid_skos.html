@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+  <title>Ontospy &gt; stop_covid_skos.ttl</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+  <style type="text/css" media="screen">
+
+
+  body {
+	  margin-left: 6em;
+	  margin-right: 12em;
+	  text-align: justify;
+    padding: 2em 1em 2em 70px;
+    margin: 0;
+    font-family: sans-serif;
+    color: black;
+    background: white;
+    background-position: top left;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
+
+  :link { color: #00C; background: transparent }
+  :visited { color: #00C; background: transparent }
+  a:active { color: #C00; background: transparent }
+
+  a:link img, a:visited img { border-style: none } /* no border on img links */
+
+  a:hover {color: white; background: #00C; }
+  a.backlink:hover {color: white; background: grey; }
+  a.greylink:hover {color: white; background: grey; }
+
+  .margintop {
+  	 margin-top: 40px;
+  }
+
+
+  dt, dd { margin-top: 10px; margin-bottom: 0 } /* opera 3.50 */
+  dt { font-weight: bold }
+
+
+  h1, h2, h3, h4, h5, h6 { text-align: left }
+  /* background should be transparent, but WebTV has a bug */
+  h1, h2, h3, h4, h5 { color: #005A9C; background: white }
+  h1.title { font: 200% sans-serif }
+  h1 { font: 170% sans-serif }
+  h2 { font: 140% sans-serif }
+  h3 { font: 120% sans-serif }
+  h4 { font: bold 100% sans-serif }
+  h5 { font: italic 100% sans-serif }
+  h6 { font: small-caps 100% sans-serif }
+
+  .hide { display: none }
+
+
+  pre { margin-left: 2em }
+
+  pre, code { font-family: monospace } /* navigator 4 requires this */
+
+
+  .implementation {
+  	background: aliceblue;
+	padding: 10px;
+	margin-top: 5px;
+  }
+
+  fieldset {
+	  margin-top: 20px;
+	  padding: 13px;
+      text-align: left;
+  }
+
+  legend {
+	  text-transform: uppercase;
+  }
+
+  .entity-div {
+	  margin: 55px 10px 30px 10px;
+  }
+
+  .entity-section {
+	  margin-bottom: 0px;
+  }
+
+
+  a.backlink {
+	  font-size: 80%;
+	  color: grey;
+  }
+
+  a.greylink {
+	  color: grey;
+  }
+
+
+   .implementation_title {
+
+       font-weight: bold;
+       font-size: 100%;
+   }
+
+.section-desc {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+
+
+        .tree-container {
+            width: 3000em;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+		.tree {margin: 10px 0px 30px -20px; padding: 0; display: inline-block;}
+
+		.tree ul {
+			padding-top: 20px; position: relative;
+
+			transition: all 0.5s;
+			-webkit-transition: all 0.5s;
+			-moz-transition: all 0.5s;
+		}
+
+		.tree li {
+			float: left; text-align: center;
+			list-style-type: none;
+			position: relative;
+			padding: 20px 5px 0 5px;
+
+			transition: all 0.5s;
+			-webkit-transition: all 0.5s;
+			-moz-transition: all 0.5s;
+		}
+
+		/*We will use ::before and ::after to draw the connectors*/
+
+		.tree li::before, .tree li::after{
+			content: '';
+			position: absolute; top: 0; right: 50%;
+			border-top: 1px solid #ccc;
+			width: 50%; height: 20px;
+		}
+		.tree li::after{
+			right: auto; left: 50%;
+			border-left: 1px solid #ccc;
+		}
+
+		/*We need to remove left-right connectors from elements without
+		any siblings*/
+		.tree li:only-child::after, .tree li:only-child::before {
+			display: none;
+		}
+
+		/*Remove space from the top of single children*/
+		.tree li:only-child{ padding-top: 0;}
+
+		/*Remove left connector from first child and
+		right connector from last child*/
+		.tree li:first-child::before, .tree li:last-child::after{
+			border: 0 none;
+		}
+		/*Adding back the vertical connector to the last nodes*/
+		.tree li:last-child::before{
+			border-right: 1px solid #ccc;
+			border-radius: 0 5px 0 0;
+			-webkit-border-radius: 0 5px 0 0;
+			-moz-border-radius: 0 5px 0 0;
+		}
+		.tree li:first-child::after{
+			border-radius: 5px 0 0 0;
+			-webkit-border-radius: 5px 0 0 0;
+			-moz-border-radius: 5px 0 0 0;
+		}
+
+		/*Time to add downward connectors from parents*/
+		.tree ul ul::before{
+			content: '';
+			position: absolute; top: 0; left: 50%;
+			border-left: 1px solid #ccc;
+			width: 0; height: 20px;
+		}
+
+		.tree li a{
+			border: 1px solid #ccc;
+			padding: 5px 10px;
+			text-decoration: none;
+			color: #666;
+			font-family: arial, verdana, tahoma;
+			font-size: 11px;
+			display: inline-block;
+
+			border-radius: 5px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+
+			transition: all 0.5s;
+			-webkit-transition: all 0.5s;
+			-moz-transition: all 0.5s;
+		}
+
+		/*Time for some hover effects*/
+		/*We will apply the hover effect the the lineage of the element also*/
+		.tree li a:hover, .tree li a:hover+ul li a {
+			background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+		}
+		/*Connector styles on hover*/
+		.tree li a:hover+ul li::after,
+		.tree li a:hover+ul li::before,
+		.tree li a:hover+ul::before,
+		.tree li a:hover+ul ul::before{
+			border-color:  #94a0b4;
+		}
+
+		/*Thats all. I hope you enjoyed it.
+		Thanks :)*/
+
+
+  </style>
+
+
+</head>
+
+
+<body>
+
+
+    
+	<h1 class="title">Graph:&nbsp;<a href="" target="_blank">stop_covid_skos.ttl</a></h1>
+	<h3></h3>
+
+	<p><small>Ontology documentation automatically generated by <a class="greylink" href="http://lambdamusic.github.io/Ontospy/">Ontospy</a> on 28th March 2020 19:46</small></p>
+
+
+
+	
+
+
+	<hr class="margintop">
+
+	<h1><a name="toc">&nbsp;</a>Table of Content</h1>
+
+	<ul>
+		
+		<li><a href="#a-z">A-Z of Terms</a></li>
+		
+		
+		
+		
+		<li><a href="#skosconcepts">SKOS Concepts</a></li>
+
+		
+
+	</ul>
+
+
+
+
+	
+
+	
+
+
+
+
+	
+
+	<hr class="margintop">
+	<h1><a name="a-z">&nbsp;</a>A-Z of terms</h1>
+
+	<div id="azterms">
+
+	This is a complete alphabetical A-Z index of all terms, by main logical type.
+
+	
+
+	
+
+	
+
+	
+
+	
+
+		<fieldset> <legend>SKOS Concepts (15)</legend>
+			&nbsp;<a href="#ex:Guideline">ex:Guideline</a>
+			|  <a href="#ex:agree">ex:agree</a>
+			|  <a href="#ex:anyEffort">ex:anyEffort</a>
+			|  <a href="#ex:everyone">ex:everyone</a>
+			|  <a href="#ex:family">ex:family</a>
+			|  <a href="#ex:friends">ex:friends</a>
+			|  <a href="#ex:group">ex:group</a>
+			|  <a href="#ex:helpOthers">ex:helpOthers</a>
+			|  <a href="#ex:isolate">ex:isolate</a>
+			|  <a href="#ex:minimiseContact">ex:minimiseContact</a>
+			|  <a href="#ex:recognition">ex:recognition</a>
+			|  <a href="#ex:selfIsolate">ex:selfIsolate</a>
+			|  <a href="#ex:stayAway">ex:stayAway</a>
+			|  <a href="#ex:stayClean">ex:stayClean</a>
+			|  <a href="#ex:stayInformed">ex:stayInformed</a>
+			  
+		</fieldset>
+
+	
+
+
+	</div>
+
+
+
+	
+
+
+	
+
+
+
+	
+
+	
+
+
+
+
+
+
+
+	
+
+	
+
+
+
+
+
+
+
+	
+
+	
+
+
+
+
+	
+
+
+	
+
+
+		<hr class="margintop">
+		<h1 class="margintop"><a name="skosconcepts">&nbsp;</a>SKOS Concepts</h1>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:Guideline" href="#ex:Guideline">ex:Guideline</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+
+                            <li href="#"><a>skos:Concept</a>
+
+                            <ul>
+                              <li><a style="font-weight: bold;">ex:Guideline</a>
+
+                              
+                                  <ul>
+                                    <li><a href="#ex:agree">ex:agree</a></li><li><a href="#ex:anyEffort">ex:anyEffort</a></li><li><a href="#ex:helpOthers">ex:helpOthers</a></li><li><a href="#ex:isolate">ex:isolate</a></li><li><a href="#ex:minimiseContact">ex:minimiseContact</a></li><li><a href="#ex:recognition">ex:recognition</a></li><li><a href="#ex:stayAway">ex:stayAway</a></li><li><a href="#ex:stayClean">ex:stayClean</a></li><li><a href="#ex:stayInformed">ex:stayInformed</a></li>
+                                  </ul>
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                        
+
+                    </ul>
+                </div>
+
+
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:Guideline a skos:Concept ;<br>    skos:prefLabel "Guideline" .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:agree" href="#ex:agree">ex:agree</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+                            <li> <a href="#ex:Guideline">ex:Guideline</a>
+
+                            <ul>
+
+                              <li><a style="font-weight: bold;">ex:agree</a>
+
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                            
+
+                        
+
+                    </ul>
+                </div>
+
+
+                
+                <p class="section-desc">
+                    <small>NOTE</small> ex:agree is a leaf node.</p>
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+					<p class="section-desc"><b>Has Broader concept <small>(1)</small>:</b>
+                        <br>
+                        <a href="#ex:Guideline">ex:Guideline</a>  
+                    </p>
+				
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:agree a skos:Concept ;<br>    skos:broader ex:Guideline ;<br>    skos:description "Share Safe Spaces with family/friends who agree to isolate from others." ;<br>    skos:prefLabel "Agree to be safe" ;<br>    skos:related ex:family .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:anyEffort" href="#ex:anyEffort">ex:anyEffort</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+                            <li> <a href="#ex:Guideline">ex:Guideline</a>
+
+                            <ul>
+
+                              <li><a style="font-weight: bold;">ex:anyEffort</a>
+
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                            
+
+                        
+
+                    </ul>
+                </div>
+
+
+                
+                <p class="section-desc">
+                    <small>NOTE</small> ex:anyEffort is a leaf node.</p>
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+					<p class="section-desc"><b>Has Broader concept <small>(1)</small>:</b>
+                        <br>
+                        <a href="#ex:Guideline">ex:Guideline</a>  
+                    </p>
+				
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:anyEffort a skos:Concept ;<br>    skos:broader ex:Guideline ;<br> 
+   skos:description "Immediate ideal response may not be possible, but 
+every action that reduces exposure to infection reduces both your risk 
+and the outbreak, and improvements can happen over time and through 
+collaboration." ;<br>    skos:prefLabel "Any effort is better than nothing" ;<br>    skos:related ex:everyone .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:everyone" href="#ex:everyone">ex:everyone</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+
+                            <li href="#"><a>skos:Concept</a>
+
+                            <ul>
+                              <li><a style="font-weight: bold;">ex:everyone</a>
+
+                              
+                                  <ul>
+                                    <li><a href="#ex:family">ex:family</a></li><li><a href="#ex:friends">ex:friends</a></li><li><a href="#ex:selfIsolate">ex:selfIsolate</a></li>
+                                  </ul>
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                        
+
+                    </ul>
+                </div>
+
+
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:everyone a skos:Concept ;<br>    skos:prefLabel "Everyone" ;<br>    skos:scopeNote "Everybody refers to a country where the virus can be." .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:family" href="#ex:family">ex:family</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+                            <li> <a href="#ex:everyone">ex:everyone</a>
+
+                            <ul>
+
+                              <li><a style="font-weight: bold;">ex:family</a>
+
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                            
+
+                        
+
+                    </ul>
+                </div>
+
+
+                
+                <p class="section-desc">
+                    <small>NOTE</small> ex:family is a leaf node.</p>
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+					<p class="section-desc"><b>Has Broader concept <small>(1)</small>:</b>
+                        <br>
+                        <a href="#ex:everyone">ex:everyone</a>  
+                    </p>
+				
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:family a skos:Concept ;<br>    skos:broader ex:everyone ;<br>    skos:description "Familiy living in the same house" ;<br>    skos:prefLabel "Family" .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:friends" href="#ex:friends">ex:friends</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+                            <li> <a href="#ex:everyone">ex:everyone</a>
+
+                            <ul>
+
+                              <li><a style="font-weight: bold;">ex:friends</a>
+
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                            
+
+                        
+
+                    </ul>
+                </div>
+
+
+                
+                <p class="section-desc">
+                    <small>NOTE</small> ex:friends is a leaf node.</p>
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+					<p class="section-desc"><b>Has Broader concept <small>(1)</small>:</b>
+                        <br>
+                        <a href="#ex:everyone">ex:everyone</a>  
+                    </p>
+				
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:friends a skos:Concept ;<br>    skos:broader ex:everyone ;<br>    skos:prefLabel "Friends" .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:group" href="#ex:group">ex:group</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+
+                            <li href="#"><a>skos:Concept</a>
+
+                            <ul>
+                              <li><a style="font-weight: bold;">ex:group</a>
+
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                        
+
+                    </ul>
+                </div>
+
+
+                
+                <p class="section-desc">
+                    <small>NOTE</small> ex:group is a leaf node.</p>
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:group a skos:Concept ;<br>    skos:prefLabel "Group" .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:helpOthers" href="#ex:helpOthers">ex:helpOthers</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+                            <li> <a href="#ex:Guideline">ex:Guideline</a>
+
+                            <ul>
+
+                              <li><a style="font-weight: bold;">ex:helpOthers</a>
+
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                            
+
+                        
+
+                    </ul>
+                </div>
+
+
+                
+                <p class="section-desc">
+                    <small>NOTE</small> ex:helpOthers is a leaf node.</p>
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+					<p class="section-desc"><b>Has Broader concept <small>(1)</small>:</b>
+                        <br>
+                        <a href="#ex:Guideline">ex:Guideline</a>  
+                    </p>
+				
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:helpOthers a skos:Concept ;<br>    skos:broader ex:Guideline ;<br>    skos:description "Help others locally without physical contact, engage others online." ;<br>    skos:prefLabel "Help others" ;<br>    skos:related ex:selfIsolate .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:isolate" href="#ex:isolate">ex:isolate</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+                            <li> <a href="#ex:Guideline">ex:Guideline</a>
+
+                            <ul>
+
+                              <li><a style="font-weight: bold;">ex:isolate</a>
+
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                            
+
+                        
+
+                    </ul>
+                </div>
+
+
+                
+                <p class="section-desc">
+                    <small>NOTE</small> ex:isolate is a leaf node.</p>
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+					<p class="section-desc"><b>Has Broader concept <small>(1)</small>:</b>
+                        <br>
+                        <a href="#ex:Guideline">ex:Guideline</a>  
+                    </p>
+				
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:isolate a skos:Concept ;<br>    skos:broader ex:Guideline ;<br>   
+ skos:description "Individuals with symptoms or positive case 
+identification should isolate separately from family and friends." ;<br>    skos:prefLabel "Isolate from family" ;<br>    skos:related ex:family .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:minimiseContact" href="#ex:minimiseContact">ex:minimiseContact</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+                            <li> <a href="#ex:Guideline">ex:Guideline</a>
+
+                            <ul>
+
+                              <li><a style="font-weight: bold;">ex:minimiseContact</a>
+
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                            
+
+                        
+
+                    </ul>
+                </div>
+
+
+                
+                <p class="section-desc">
+                    <small>NOTE</small> ex:minimiseContact is a leaf node.</p>
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+					<p class="section-desc"><b>Has Broader concept <small>(1)</small>:</b>
+                        <br>
+                        <a href="#ex:Guideline">ex:Guideline</a>  
+                    </p>
+				
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:minimiseContact a skos:Concept ;<br>    skos:broader ex:Guideline ;<br>    skos:description "Minimize contact, maintain essential actions and normal ones where possible, maximize help to others." ;<br>    skos:prefLabel "Minimize contact" ;<br>    skos:related ex:everyone .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:recognition" href="#ex:recognition">ex:recognition</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+                            <li> <a href="#ex:Guideline">ex:Guideline</a>
+
+                            <ul>
+
+                              <li><a style="font-weight: bold;">ex:recognition</a>
+
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                            
+
+                        
+
+                    </ul>
+                </div>
+
+
+                
+                <p class="section-desc">
+                    <small>NOTE</small> ex:recognition is a leaf node.</p>
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+					<p class="section-desc"><b>Has Broader concept <small>(1)</small>:</b>
+                        <br>
+                        <a href="#ex:Guideline">ex:Guideline</a>  
+                    </p>
+				
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:recognition a skos:Concept ;<br>    skos:broader ex:Guideline ;<br>    skos:description "Recognize this is not normal, normal behavior must be modified to survive, protect and sustain life." ;<br>    skos:prefLabel "Recognistion" ;<br>    skos:related ex:everyone .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:selfIsolate" href="#ex:selfIsolate">ex:selfIsolate</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+                            <li> <a href="#ex:everyone">ex:everyone</a>
+
+                            <ul>
+
+                              <li><a style="font-weight: bold;">ex:selfIsolate</a>
+
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                            
+
+                        
+
+                    </ul>
+                </div>
+
+
+                
+                <p class="section-desc">
+                    <small>NOTE</small> ex:selfIsolate is a leaf node.</p>
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+					<p class="section-desc"><b>Has Broader concept <small>(1)</small>:</b>
+                        <br>
+                        <a href="#ex:everyone">ex:everyone</a>  
+                    </p>
+				
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:selfIsolate a skos:Concept ;<br>    skos:broader ex:everyone ;<br>    skos:prefLabel "Those who are in self-isolation" .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:stayAway" href="#ex:stayAway">ex:stayAway</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+                            <li> <a href="#ex:Guideline">ex:Guideline</a>
+
+                            <ul>
+
+                              <li><a style="font-weight: bold;">ex:stayAway</a>
+
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                            
+
+                        
+
+                    </ul>
+                </div>
+
+
+                
+                <p class="section-desc">
+                    <small>NOTE</small> ex:stayAway is a leaf node.</p>
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+					<p class="section-desc"><b>Has Broader concept <small>(1)</small>:</b>
+                        <br>
+                        <a href="#ex:Guideline">ex:Guideline</a>  
+                    </p>
+				
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:stayAway a skos:Concept ;<br>    skos:broader ex:Guideline ;<br>    skos:description "Stay 6 ft/2 m away from others, don’t touch shared/public unsafe surfaces" ;<br>    skos:prefLabel "Stay away" ;<br>    skos:related ex:selfIsolate .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:stayClean" href="#ex:stayClean">ex:stayClean</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+                            <li> <a href="#ex:Guideline">ex:Guideline</a>
+
+                            <ul>
+
+                              <li><a style="font-weight: bold;">ex:stayClean</a>
+
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                            
+
+                        
+
+                    </ul>
+                </div>
+
+
+                
+                <p class="section-desc">
+                    <small>NOTE</small> ex:stayClean is a leaf node.</p>
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+					<p class="section-desc"><b>Has Broader concept <small>(1)</small>:</b>
+                        <br>
+                        <a href="#ex:Guideline">ex:Guideline</a>  
+                    </p>
+				
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:stayClean a skos:Concept ;<br>    skos:broader ex:Guideline ;<br>    skos:description "Use soap, disinfectant, gloves or plastic bag." ;<br>    skos:prefLabel "Clean" ;<br>    skos:related ex:selfIsolate .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+			<div class="entity-div">
+
+				<h3 class="entity-section">Concept: <a name="ex:stayInformed" href="#ex:stayInformed">ex:stayInformed</a>
+					<small>&nbsp;&nbsp;<a href="#a-z" class="backlink">back to top</a></small>
+				</h3>
+				<hr>
+
+                <div class="tree">
+                    <ul>
+                        
+                            <li> <a href="#ex:Guideline">ex:Guideline</a>
+
+                            <ul>
+
+                              <li><a style="font-weight: bold;">ex:stayInformed</a>
+
+                              
+                                </li>
+
+                            </ul>
+
+                            </li>
+                            
+
+                        
+
+                    </ul>
+                </div>
+
+
+                
+                <p class="section-desc">
+                    <small>NOTE</small> ex:stayInformed is a leaf node.</p>
+                
+
+				<p class="section-desc"><b>Description</b>
+                    <br>
+                    
+                </p>
+
+                
+					<p class="section-desc"><b>Has Broader concept <small>(1)</small>:</b>
+                        <br>
+                        <a href="#ex:Guideline">ex:Guideline</a>  
+                    </p>
+				
+
+
+                <small class="implementation_title">Implementation:</small>
+				<div class="implementation">
+					<code><p>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .<br>@prefix ex: &lt;http://example.org#&gt; .<br>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .<br>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .<br>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .<br>@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .<br>@prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .<br>@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .<br>@prefix vann: &lt;http://purl.org/vocab/vann/&gt; .<br>@prefix void: &lt;http://rdfs.org/ns/void#&gt; .<br>@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .<br>@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</p>
+
+<p>ex:stayInformed a skos:Concept ;<br>    skos:broader ex:Guideline ;<br>
+    skos:description "Stay informed about typical symptoms, local 
+instructions for testing/treating, be able to act ASAP once any symptom 
+manifests" ;<br>    skos:prefLabel "Informed" ;<br>    skos:related ex:selfIsolate .</p>
+
+<p></p></code>
+				</div>
+
+			</div>
+
+			
+
+	
+
+
+
+
+
+
+	<hr>
+	<small>Ontology documentation automatically generated by <a class="greylink" href="http://lambdamusic.github.io/Ontospy/">Ontospy</a> on 28th March 2020 19:46</small>
+
+
+
+
+</body></html>
