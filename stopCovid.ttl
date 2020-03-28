@@ -1,0 +1,79 @@
+# Public developed named graph for insight in wanted behavious when stopping a virus spread.
+# Initiated while COVID-19 was active, usable also for other virus types.
+# Important to realise requirements for practical use and accessability.
+
+# Created writing raw turtle in order to prevent tool side effects.
+
+# Please contact R. Dijkstra for more information
+
+# Validate using :  http://ttl.summerofcode.be/
+
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/>.
+
+@prefix ex:      <http://example.org#> .
+
+# TODO: 
+# - Add other guidelines
+# - Use relevant namespaces
+# - Add Spanish language labels
+# - Add other language labels
+
+ex:everyone a foaf:Group ;
+    rdfs:label "Everyone" .
+
+ex:selfIsolate a foaf:Group ;
+    rdfs:label "Those who are in self-isolation" .
+
+ex:family a foaf:Group ;
+    rdfs:label "Family" .
+
+ex:Guidline a rdfs:Class ;
+    rdfs:label "Guideline" .
+
+ex:guideline_E1 a ex:Guideline ;
+    rdfs:label "Recognistion" ;
+    rdfs:description "Recognize this is not normal, normal behavior must be modified to survive, protect and sustain life." ;
+    rdfs:domain ex:everyone .
+
+ex:guideline_E2 a ex:Guideline ;
+    rdfs:label "Minimize contact" ;
+    rdfs:description "Minimize contact, maintain essential actions and normal ones where possible, maximize help to others." ;
+    rdfs:domain ex:everyone .
+
+ex:guideline_E3 a ex:Guideline ;
+    rdfs:label "Any effort is better than nothing" ;
+    rdfs:description "Immediate ideal response may not be possible, but every action that reduces exposure to infection reduces both your risk and the outbreak, and improvements can happen over time and through collaboration." ;
+    rdfs:domain ex:everyone .
+
+ex:guideline_S1 a ex:Guideline ;
+    rdfs:label "Stay away" ;
+    rdfs:description "Stay 6 ft/2 m away from others, don’t touch shared/public unsafe surfaces" ; 
+    rdfs:domain ex:selfIsolate .
+
+ex:guideline_S2 a ex:Guideline ;
+    rdfs:label "Help others" ;
+    rdfs:description "Help others locally without physical contact, engage others online." ; 
+    rdfs:domain ex:selfIsolate .
+
+ex:guideline_S3 a ex:Guideline ;
+    rdfs:label "Clean" ;
+    rdfs:description "Use soap, disinfectant, gloves or plastic bag." ; 
+    rdfs:domain ex:selfIsolate .
+
+
+
+# II. SELF-ISOLATE:
+
+# • Use soap, disinfectant, gloves or plastic bag.
+# • Stay informed about typical symptoms, local instructions
+# for testing/treating, be able to act ASAP once any symptom
+# manifests
+# • Set up routine check-in with a reliable friend/relative
+# (there are cases the symptoms˘astrike very rapidly).
+# III. FAMILY/FRIENDS:
+# • Share Safe Spaces with family/friends who agree to
+# isolate from others.

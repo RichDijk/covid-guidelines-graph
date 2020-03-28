@@ -1,0 +1,85 @@
+# Public developed named graph for insight in wanted behavious when stopping a virus spread.
+# Initiated while COVID-19 was active, usable also for other virus types.
+# Important to realise requirements for practical use and accessability.
+# Start with skos because this is easy to understand for non semanticians and many skos players exist.
+# Later this can be formalized in OWL of RDFS
+
+# Created writing raw turtle in order to prevent tool side effects.
+
+# Please contact R. Dijkstra for more information
+
+# Validate using :  http://ttl.summerofcode.be/
+
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/>.
+
+@prefix ex:      <http://example.org#> .
+
+# TODO: 
+# - Add other guidelines
+# - Use relevant namespaces
+# - Add Spanish language labels
+# - Add other language labels
+
+ex:group a skos:Concept ;
+    skos:prefLabel "Group" .
+
+ex:everyone a skos:Concept ;
+    skos:prefLabel "Everyone" ;
+    skos:scopeNote "Everybody refers to a country where the virus can be." .
+
+ex:selfIsolate a skos:Concept ;
+    skos:prefLabel "Those who are in self-isolation" ;
+    skos:broader ex:everyone . 
+
+ex:family a skos:Concept ;
+    skos:prefLabel "Family" ;
+    skos:broader ex:everyone . 
+
+ex:Guideline a skos:Concept ;
+    skos:prefLabel "Guideline" .
+
+ex:recognition a skos:Concept ;
+    skos:broader ex:Guideline ; 
+    skos:prefLabel "Recognistion" ;
+    skos:description "Recognize this is not normal, normal behavior must be modified to survive, protect and sustain life." ;
+    skos:related ex:everyone .
+
+ex:minimiseContact a skos:Concept ;
+    skos:broader ex:Guideline ; 
+    skos:prefLabel "Minimize contact" ;
+    skos:description "Minimize contact, maintain essential actions and normal ones where possible, maximize help to others." ;
+    skos:related ex:everyone .
+
+ex:anyEffort a skos:Concept ;
+    skos:broader ex:Guideline ; 
+    skos:prefLabel "Any effort is better than nothing" ;
+    skos:description "Immediate ideal response may not be possible, but every action that reduces exposure to infection reduces both your risk and the outbreak, and improvements can happen over time and through collaboration." ;
+    skos:related ex:everyone .
+
+ex:stayAway a skos:Concept ;
+    skos:prefLabel "Stay away" ;
+    skos:description "Stay 6 ft/2 m away from others, don’t touch shared/public unsafe surfaces" ; 
+    skos:related ex:selfIsolate .
+
+ex:helpOthers a skos:Concept ;
+    skos:prefLabel "Help others" ;
+    skos:description "Help others locally without physical contact, engage others online." ; 
+    skos:related ex:selfIsolate .
+
+ex:stayClean a skos:Concept ;
+    skos:prefLabel "Clean" ;
+    skos:description "Use soap, disinfectant, gloves or plastic bag." ; 
+    skos:related ex:selfIsolate .
+
+ex:stayInformed a skos:Concept ;
+    skos:description "Stay informed about typical symptoms, local instructions for testing/treating, be able to act ASAP once any symptom manifests" ;
+    skos:related ex:selfIsolate .
+
+ex:agree a skos:Concept ;
+    skos:prefLabel "Agree to be safe" ;
+    skos:description "Share Safe Spaces with family/friends who agree to isolate from others." ;
+    skos:related ex:family .
